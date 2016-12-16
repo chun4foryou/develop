@@ -39,8 +39,8 @@ function make_default_option()
 	echo "GENERATE_TREEVIEW      = YES" >> ${D_OPTION}
 	echo "HAVE_DOT               = YES" >> ${D_OPTION}
 	echo "UML_LOOK               = YES" >> ${D_OPTION}
-	echo "CALL_GRAPH             = NO" >> ${D_OPTION}
-	echo "CALLER_GRAPH           = NO" >> ${D_OPTION} 
+	echo "CALL_GRAPH             = YES" >> ${D_OPTION}
+	echo "CALLER_GRAPH           = YES" >> ${D_OPTION} 
 	echo "DOT_PATH               = /usr/bin/dot" >> ${D_OPTION}
 	echo "DOT_GRAPH_MAX_NODES    = 1" >> ${D_OPTION}
 	echo "OUTPUT_DIRECTORY       = ./${WHOAMI}" >> ${D_OPTION}
