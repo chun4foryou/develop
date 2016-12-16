@@ -1,24 +1,31 @@
+# Developer : 국내 개발팀(김진권)kim jin kwon
+# date : 2016-12-17 
+#
+#!/bin/bash	
+
+#TODO 권한을 어떻게 할것인가.
 WHOAMI=`whoami`
-D_OPTION="${WHOAMI}_dox.conf"
-DOX_CONF="${WHOAMI}_doxygen.conf"
+SERVER="192.168.22.128"
 
-#########################
-# 초기화
-########################
-function Init()
+##################################
+# User Setting Option 만들기
+##################################
+function make_user_option()
 {
+#TODO dialog로 만들면 더 좋을듯
+	echo "PROJECT_NAME           = ${PRO_NAME}" >> ${D_OPTION}
+	echo "PROJECT_NUMBER         = ${VERSION}" >> ${D_OPTION}
+	echo "OUTPUT_DIRECTORY       = ./${PRO_NAME}-${VERSION}" >> ${D_OPTION}
+	echo "INPUT                  = ./" >> ${D_OPTION}
+	echo "FILE_PATTERNS          = *.c *.h" >> ${D_OPTION}
 
-	if [ -e ./${DOX_CONF} ];then
-		rm -rf ./${DOX_CONF}
-	fi 
-
-	if [ -e ./${DOX_CONF} ];then
-		rm -rf ./${DOX_CONF}
-	fi 
-
-	if [ -e ./$WHOAMI ];then
-		`rm -rf ./$WHOAMI`
-	fi 
+	echo -n "Exclude File or Directory(delimiter is space): "
+	read EXCLUDE_LIST
+	if [ "$EXCLUDE_LIST" == "" ];then
+		EXCLUDE_LIST=""
+	fi	
+	echo "EXCLUDE                = ${EXCLUDE_LIST}" >> ${D_OPTION}
+	echo "EXCLUDE_PATTERNS       =" >> ${D_OPTION}
 }
 
 ##################################
@@ -37,25 +44,54 @@ function make_default_option()
 	echo "GENERATE_TREEVIEW      = YES" >> ${D_OPTION}
 	echo "HAVE_DOT               = YES" >> ${D_OPTION}
 	echo "UML_LOOK               = YES" >> ${D_OPTION}
-	echo "CALL_GRAPH             = YES" >> ${D_OPTION}
-	echo "CALLER_GRAPH           = YES" >> ${D_OPTION} 
+	echo "CALL_GRAPH             = NO" >> ${D_OPTION}
+	echo "CALLER_GRAPH           = NO" >> ${D_OPTION} 
 	echo "DOT_PATH               = /usr/bin/dot" >> ${D_OPTION}
-	echo "DOT_GRAPH_MAX_NODES    = 1" >> ${D_OPTION}
-	echo "OUTPUT_DIRECTORY       = ./${WHOAMI}" >> ${D_OPTION}
+	echo "DOT_GRAPH_MAX_NODES    = 3" >> ${D_OPTION}
 }
 
-##################################
-# User Setting Option 만들기
-##################################
-function make_user_option()
+#########################
+# 초기화
+########################
+function clear_project()
 {
-	echo "PROJECT_NAME           = TEST" >> ${D_OPTION}
-	echo "PROJECT_NUMBER         = 0.1" >> ${D_OPTION}
-	echo "INPUT                  = test.c sn_worker.c" 
-	echo "FILE_PATTERNS          = *.c *.h" >> ${D_OPTION}
-	echo "EXCLUDE                =" >> ${D_OPTION}
-	echo "EXCLUDE_PATTERNS       =" >> ${D_OPTION}
+	if [ -e ./${D_OPTION} ];then
+		rm -rf ./${D_OPTION}
+	fi 
+
+	if [ -e ./${DOX_CONF} ];then
+		rm -rf ./${DOX_CONF}
+	fi 
 }
+
+###############################
+# 프로젝트 정보를 입력 받는다.
+###############################
+function get_project_info()
+{
+	echo -n "Project Name : "
+	read TMP_NAME
+	if [ "$TMP_NAME" == "" ];then
+		TMP_NAME="TEST"
+	fi	
+
+	PRO_NAME="${TMP_NAME//[[:space:]]/}" # 공백 제거
+
+	echo -n "Version : "
+	read TMP_VERSION
+	if [ "$TMP_VERSION" == "" ];then
+		TMP_VERSION="1.0"
+	fi	
+
+	VERSION="${TMP_VERSION//[[:space:]]/}" #공백 제거
+
+	D_OPTION="${PRO_NAME}-${VERSION}_dox.conf"
+	DOX_CONF="${PRO_NAME}-${VERSION}_doxygen.conf"
+	clear_project
+}
+
+
+
 
 ###########################################
 # doxygen config 에 Extra tag 추가 만들기
@@ -71,8 +107,9 @@ function add_option()
 function make_config()
 {
 	echo "Doxygen Configuration Setting"
-	make_default_option
 	make_user_option
+	make_default_option
+
 }
 
 #########################
@@ -102,11 +139,9 @@ function make_doxygen()
 #########################
 function compress_doxygen()
 {
-	rm -rf ${WHOAMI}.tar.gz
-	echo "tar cvfz ${WHOAMI}.tar.gz $WHOAMI"
-	tar cvfz ${WHOAMI}.tar.gz ./$WHOAMI > /dev/null	
-#	rm -rf ../${WHOAMI}
-#	mv ${WHOAMI} ../
+	rm -rf ${PRO_NAME}-${VERSION}.tar.gz
+	echo "tar cvfz ${PRO_NAME}-${VERSION}.tar.gz ${PRO_NAME}-${VERSION}"
+	tar cvfz ${PRO_NAME}-${VERSION}.tar.gz ./${PRO_NAME}-${VERSION} > /dev/null	
 }
 
 #########################
@@ -114,17 +149,34 @@ function compress_doxygen()
 #########################
 function send_to_webserver()
 {
-	scp ./${WHOAMI}.tar.gz $WHOAMI@192.168.22.128:/var/www/html	
-	ssh $WHOAMI@192.168.22.128 "cd /var/www/html;tar xvfz ${WHOAMI}.tar.gz; rm -rf ${WHOAMI}.tar.gz;"
-	rm -rf ${WHOAMI}
-	rm -rf ${WHOAMI}.tar.gz
+	scp ./${PRO_NAME}-${VERSION}.tar.gz $WHOAMI@${SERVER}:/var/www/html	
+	ssh $WHOAMI@${SERVER} <<EOF
+	cd /var/www/html;
+	rm -rf ${PRO_NAME}-${VERSION};
+	tar xvfz ${PRO_NAME}-${VERSION}.tar.gz > /dev/null
+	chmod -R 775 ${PRO_NAME}-${VERSION}
+	rm -rf ${PRO_NAME}-${VERSION}.tar.gz;
+EOF
+	rm -rf ${DOX_CONF}
+	rm -rf ${D_OPTION}
+	rm -rf ${PRO_NAME}-${VERSION}
+	rm -rf ${PRO_NAME}-${VERSION}.tar.gz
+
+	RED='\033[0;31m'
+	NC='\033[0m' # No Color
+	echo ""
+	echo "===================== Doxygen link======================"
+	printf "\n   ${RED}http://${SERVER}/${PRO_NAME}-${VERSION}/html/${NC}\n"
+	echo ""
+	echo "===================== Finish ==========================="
+
 }
 
 #########################
 ######### MAIN ##########
 #########################
 
-Init
+get_project_info
 make_doxygen
 compress_doxygen
 send_to_webserver
