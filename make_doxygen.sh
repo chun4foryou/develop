@@ -1,5 +1,3 @@
-#!/bin/bash
-
 WHOAMI=`whoami`
 D_OPTION="${WHOAMI}_dox.conf"
 DOX_CONF="${WHOAMI}_doxygen.conf"
@@ -107,8 +105,8 @@ function compress_doxygen()
 	rm -rf ${WHOAMI}.tar.gz
 	echo "tar cvfz ${WHOAMI}.tar.gz $WHOAMI"
 	tar cvfz ${WHOAMI}.tar.gz ./$WHOAMI > /dev/null	
-	rm -rf ../${WHOAMI}
-	mv ${WHOAMI} ../
+#	rm -rf ../${WHOAMI}
+#	mv ${WHOAMI} ../
 }
 
 #########################
@@ -116,7 +114,10 @@ function compress_doxygen()
 #########################
 function send_to_webserver()
 {
-	scp ./${WHOAMI}.tar.gz $WHOAMI@192.168.22.128:/var/www/html/
+	scp ./${WHOAMI}.tar.gz $WHOAMI@192.168.22.128:/var/www/html	
+	ssh $WHOAMI@192.168.22.128 "cd /var/www/html;tar xvfz ${WHOAMI}.tar.gz; rm -rf ${WHOAMI}.tar.gz;"
+	rm -rf ${WHOAMI}
+	rm -rf ${WHOAMI}.tar.gz
 }
 
 #########################
