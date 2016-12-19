@@ -6,6 +6,7 @@
 #TODO 권한을 어떻게 할것인가.
 WHOAMI=`whoami`
 SERVER="10.0.8.206"
+STORAGE="/var/www/doxygen/project"
 
 ##################################
 # User Setting Option 만들기
@@ -44,10 +45,10 @@ function make_default_option()
 	echo "GENERATE_TREEVIEW      = YES" >> ${D_OPTION}
 	echo "HAVE_DOT               = YES" >> ${D_OPTION}
 	echo "UML_LOOK               = YES" >> ${D_OPTION}
-	echo "CALL_GRAPH             = NO" >> ${D_OPTION}
-	echo "CALLER_GRAPH           = NO" >> ${D_OPTION} 
+	echo "CALL_GRAPH             = YES" >> ${D_OPTION}
+	echo "CALLER_GRAPH           = YES" >> ${D_OPTION} 
 	echo "DOT_PATH               = /usr/bin/dot" >> ${D_OPTION}
-	echo "DOT_GRAPH_MAX_NODES    = 3" >> ${D_OPTION}
+	echo "DOT_GRAPH_MAX_NODES    = 5" >> ${D_OPTION}
 }
 
 #########################
@@ -149,9 +150,9 @@ function compress_doxygen()
 #########################
 function send_to_webserver()
 {
-	scp ./${PRO_NAME}-${VERSION}.tar.gz $WHOAMI@${SERVER}:/var/www/html	
+	scp ./${PRO_NAME}-${VERSION}.tar.gz $WHOAMI@${SERVER}:$STORAGE
 	ssh $WHOAMI@${SERVER} <<EOF
-	cd /var/www/html;
+	cd $STORAGE;
 	rm -rf ${PRO_NAME}-${VERSION};
 	tar xvfz ${PRO_NAME}-${VERSION}.tar.gz > /dev/null
 	chmod -R 775 ${PRO_NAME}-${VERSION}
@@ -166,7 +167,7 @@ EOF
 	NC='\033[0m' # No Color
 	echo ""
 	echo "===================== Doxygen link======================"
-	printf "\n   ${RED}http://${SERVER}/${PRO_NAME}-${VERSION}/html/${NC}\n"
+	printf "\n   ${RED}http://${SERVER}:1443/project/${PRO_NAME}-${VERSION}/html/${NC}\n"
 	echo ""
 	echo "===================== Finish ==========================="
 
