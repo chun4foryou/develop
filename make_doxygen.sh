@@ -1,18 +1,18 @@
-# Developer : êµ­ë‚´ ê°œë°œíŒ€(ê¹€ì§„ê¶Œ)kim jin kwon
+# Developer : ±¹³» °³¹ßÆÀ(±èÁø±Ç)kim jin kwon
 # date : 2016-12-17 
 #
 #!/bin/bash	
 
-#TODO ê¶Œí•œì„ ì–´ë–»ê²Œ í• ê²ƒì¸ê°€.
+#TODO ±ÇÇÑÀ» ¾î¶»°Ô ÇÒ°ÍÀÎ°¡.
 WHOAMI=`whoami`
-SERVER="192.168.22.128"
+SERVER="10.0.8.206"
 
 ##################################
-# User Setting Option ë§Œë“¤ê¸°
+# User Setting Option ¸¸µé±â
 ##################################
 function make_user_option()
 {
-#TODO dialogë¡œ ë§Œë“¤ë©´ ë” ì¢‹ì„ë“¯
+#TODO dialog·Î ¸¸µé¸é ´õ ÁÁÀ»µí
 	echo "PROJECT_NAME           = ${PRO_NAME}" >> ${D_OPTION}
 	echo "PROJECT_NUMBER         = ${VERSION}" >> ${D_OPTION}
 	echo "OUTPUT_DIRECTORY       = ./${PRO_NAME}-${VERSION}" >> ${D_OPTION}
@@ -29,8 +29,8 @@ function make_user_option()
 }
 
 ##################################
-# Default Setting Option ë§Œë“¤ê¸°
-# ì˜µì…˜ ì„¤ëª…ì€ ê³µì‹ í™ˆí˜ì´ì§€ ì°¸ì¡°
+# Default Setting Option ¸¸µé±â
+# ¿É¼Ç ¼³¸íÀº °ø½Ä È¨ÆäÀÌÁö ÂüÁ¶
 # http://www.stack.nl/~dimitri/doxygen/manual/config.html
 ##################################
 function make_default_option()
@@ -51,7 +51,7 @@ function make_default_option()
 }
 
 #########################
-# ì´ˆê¸°í™”
+# ÃÊ±âÈ­
 ########################
 function clear_project()
 {
@@ -65,7 +65,7 @@ function clear_project()
 }
 
 ###############################
-# í”„ë¡œì íŠ¸ ì •ë³´ë¥¼ ì…ë ¥ ë°›ëŠ”ë‹¤.
+# ÇÁ·ÎÁ§Æ® Á¤º¸¸¦ ÀÔ·Â ¹Ş´Â´Ù.
 ###############################
 function get_project_info()
 {
@@ -75,7 +75,7 @@ function get_project_info()
 		TMP_NAME="TEST"
 	fi	
 
-	PRO_NAME="${TMP_NAME//[[:space:]]/}" # ê³µë°± ì œê±°
+	PRO_NAME="${TMP_NAME//[[:space:]]/}" # °ø¹é Á¦°Å
 
 	echo -n "Version : "
 	read TMP_VERSION
@@ -83,7 +83,7 @@ function get_project_info()
 		TMP_VERSION="1.0"
 	fi	
 
-	VERSION="${TMP_VERSION//[[:space:]]/}" #ê³µë°± ì œê±°
+	VERSION="${TMP_VERSION//[[:space:]]/}" #°ø¹é Á¦°Å
 
 	D_OPTION="${PRO_NAME}-${VERSION}_dox.conf"
 	DOX_CONF="${PRO_NAME}-${VERSION}_doxygen.conf"
@@ -94,7 +94,7 @@ function get_project_info()
 
 
 ###########################################
-# doxygen config ì— Extra tag ì¶”ê°€ ë§Œë“¤ê¸°
+# doxygen config ¿¡ Extra tag Ãß°¡ ¸¸µé±â
 ###########################################
 function add_option()
 {
@@ -102,7 +102,7 @@ function add_option()
 }
 
 #########################
-# Doxygen íŒŒì¼ ë§Œë“¤ê¸°
+# Doxygen ÆÄÀÏ ¸¸µé±â
 ########################
 function make_config()
 {
@@ -113,14 +113,14 @@ function make_config()
 }
 
 #########################
-# Doxygen íŒŒì¼ ë§Œë“¤ê¸°
+# Doxygen ÆÄÀÏ ¸¸µé±â
 ########################
 function make_doxygen()
 {
 	doxygen -g $DOX_CONF
 	make_config
 
-# ìë™ìƒì„±ëœ Doxygen ì˜µì…˜ ë³€ê²½í•˜ê¸°
+# ÀÚµ¿»ı¼ºµÈ Doxygen ¿É¼Ç º¯°æÇÏ±â
 	while read line; do
 		key=`echo $line | awk '{print $1}'`
 		sed -i -e "/^$key/ c\
@@ -129,13 +129,13 @@ function make_doxygen()
 
 	add_option
 
-# ìµœì¢… ë³€ê²½ëœ doxygen ì˜µì…˜ìœ¼ë¡œ ë¬¸ì„œí™” ì§„í–‰
+# ÃÖÁ¾ º¯°æµÈ doxygen ¿É¼ÇÀ¸·Î ¹®¼­È­ ÁøÇà
 	doxygen $DOX_CONF
 
 }
 
 #########################
-# ìƒì„±ëœ Doxygen ì••ì¶•í•˜ê¸°
+# »ı¼ºµÈ Doxygen ¾ĞÃàÇÏ±â
 #########################
 function compress_doxygen()
 {
@@ -145,7 +145,7 @@ function compress_doxygen()
 }
 
 #########################
-# ì›¹ì„œë²„ì— íŒŒì¼ ì „ì†¡í•˜ê¸°
+# À¥¼­¹ö¿¡ ÆÄÀÏ Àü¼ÛÇÏ±â
 #########################
 function send_to_webserver()
 {
