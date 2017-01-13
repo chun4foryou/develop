@@ -1,0 +1,26 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CC	Makefile	/^CC=gcc$/;"	m
+LIB	Makefile	/^LIB= -lpthread$/;"	m
+do_loop2	main.c	/^void* do_loop2(void *data)$/;"	f
+enqueue	main.c	/^void* enqueue(void *data)$/;"	f
+head	fifo_queue.h	/^	struct my_struct* head;$/;"	m	struct:my_list	typeref:struct:my_list::my_struct
+list_add_element	fifo_queue.c	/^struct my_list* list_add_element(struct my_list* s, const int i)$/;"	f
+list_free	fifo_queue.c	/^struct my_list* list_free( struct my_list* s )$/;"	f
+list_new	fifo_queue.c	/^struct my_list* list_new(void)$/;"	f
+list_print	fifo_queue.c	/^void list_print( const struct my_list* ps )$/;"	f
+list_print_element	fifo_queue.c	/^void list_print_element(const struct my_struct* p )$/;"	f
+list_remove_element	fifo_queue.c	/^struct my_list* list_remove_element( struct my_list* s )$/;"	f
+main	main.c	/^int main()$/;"	f
+mt	main.c	/^struct my_list*  mt = NULL;$/;"	v	typeref:struct:my_list
+mutex	main.c	/^pthread_mutex_t  mutex = PTHREAD_MUTEX_INITIALIZER; \/\/ 쓰레드 초기화$/;"	v
+my_list	fifo_queue.h	/^struct my_list$/;"	s
+my_struct	fifo_queue.h	/^struct my_struct$/;"	s
+ncount	main.c	/^int ncount;    \/\/ 쓰레드간 공유되는 자원$/;"	v
+next	fifo_queue.h	/^	struct my_struct* next;$/;"	m	struct:my_struct	typeref:struct:my_struct::my_struct
+num	fifo_queue.h	/^	int num;$/;"	m	struct:my_struct
+tail	fifo_queue.h	/^	struct my_struct* tail;$/;"	m	struct:my_list	typeref:struct:my_list::my_struct
