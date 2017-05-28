@@ -1,0 +1,34 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+PY3	xcoin_api_client.py	/^PY3 = sys.version_info[0] > 2;$/;"	v	language:Python
+XCoinAPI	xcoin_api_client.py	/^class XCoinAPI:$/;"	c	language:Python
+__init__	xcoin_api_client.py	/^	def __init__(self, api_key, api_secret):$/;"	m	language:Python	class:XCoinAPI
+api	api_test.py	/^api = XCoinAPI(api_key, api_secret);$/;"	v	language:Python
+api_key	api_test.py	/^api_key = "api_connect_key";$/;"	v	language:Python
+api_key	xcoin_api_client.py	/^	api_key = "";$/;"	v	language:Python	class:XCoinAPI
+api_secret	api_test.py	/^api_secret = "api_secret_key";$/;"	v	language:Python
+api_secret	xcoin_api_client.py	/^	api_secret = "";$/;"	v	language:Python	class:XCoinAPI
+api_url	xcoin_api_client.py	/^	api_url = "https:\/\/api.bithumb.com";$/;"	v	language:Python	class:XCoinAPI
+base64	xcoin_api_client.py	/^import base64$/;"	i	language:Python
+hashlib	xcoin_api_client.py	/^import hmac, hashlib$/;"	i	language:Python
+hmac	xcoin_api_client.py	/^import hmac, hashlib$/;"	i	language:Python
+http_body_callback	xcoin_api_client.py	/^	def http_body_callback(self, buf):$/;"	m	language:Python	class:XCoinAPI
+json	xcoin_api_client.py	/^import json$/;"	i	language:Python
+math	xcoin_api_client.py	/^import math$/;"	i	language:Python
+microsectime	xcoin_api_client.py	/^	def microsectime(self) :$/;"	m	language:Python	class:XCoinAPI
+microtime	xcoin_api_client.py	/^	def microtime(self, get_as_float = False):$/;"	m	language:Python	class:XCoinAPI
+parse	xcoin_api_client.py	/^	import urllib.parse$/;"	i	language:Python
+pprint	api_test.py	/^import pprint$/;"	i	language:Python
+pycurl	xcoin_api_client.py	/^import pycurl$/;"	i	language:Python
+result	api_test.py	/^result = api.xcoinApiCall("\/public\/ticker", rgParams);$/;"	v	language:Python
+rgParams	api_test.py	/^rgParams = {$/;"	v	language:Python
+sys	api_test.py	/^import sys$/;"	i	language:Python
+sys	xcoin_api_client.py	/^import sys$/;"	i	language:Python
+time	xcoin_api_client.py	/^import time$/;"	i	language:Python
+urllib	xcoin_api_client.py	/^	import urllib$/;"	i	language:Python
+urllib	xcoin_api_client.py	/^	import urllib.parse$/;"	i	language:Python
+xcoinApiCall	xcoin_api_client.py	/^	def xcoinApiCall(self, endpoint, rgParams):$/;"	m	language:Python	class:XCoinAPI
