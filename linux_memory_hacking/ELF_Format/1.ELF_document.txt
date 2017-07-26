@@ -1,0 +1,73 @@
+1. ELF Format 인란???
+ - 프로그램 로드와 ,동적링킹, 심볼 테이블 참조 등과 연관되어 있다. 
+2. ELF 파일 형식 종류 
+ 1). ET_NONE 
+   - 알수 없는 형식
+ 2). ET_REL(ELF Type relocatable)
+   - 재배열 가능항 파일 형식
+   - 아직 실행 파일에 링킹되지 않은 상태이다. 
+   - .o 파일이 이와 같은 형태 이다. 
+ 3). ET_EXEC(ELF excutable)
+   - 실행 파일 형식.
+   - 프로세스의 시작 지점인 엔트리 포인트(Entry Point)가 있다. 
+ 4). ET_DNY(ELF type dynamic)
+   - 공유 오브젝트 파일 형식.
+   - 실행 시간에 프로그램의 프로세스 이미지로 로드되고 링크된다. 
+ 5). ET_CORE(ELF type core)
+   - 코어 파일 형식이다
+ * 헤더 정보 보는 방법 readelf -h , ELF(5) man 페이지에 자세히 있따. 
+
+3. ELF 프로그램 Header의 역활
+ - 프로그램 로딩에 필요한 바이너리 세그먼트를 정의한다. 
+ - 세그먼트는 디스크에 저장된 실행 파일이 커널에 의해 로드되는 과정에서 어떤 메모리 구조로 매필 될것인지 정의한다. 
+ - 프로그램 헤더 테이블은 ELF 헤더의 멤버인 e_phoff를 통해 접근 가능한다.
+ - 프로그램 헤더의 종류는 5가지이다. 
+ 
+4. ELF Header 구조체 
+ 1) ElfN_Ehdr 
+  The ELF header is described by the type Elf32_Ehdr or Elf64_Ehdr: 
+
+  #define EI_NIDENT 16
+
+  typedef struct {
+   unsigned char e_ident[EI_NIDENT];
+   uint16_t      e_type;  // ELF 파일 형식 종류
+   uint16_t      e_machine;
+   uint32_t      e_version;
+   ElfN_Addr     e_entry;
+   ElfN_Off      e_phoff;  // 프로그램 허데 테이블 offset을 명시한다.
+   ElfN_Off      e_shoff;  // 프로그렘 섹션 테이블 offset을 명시한다.
+   uint32_t      e_flags;
+   uint16_t      e_ehsize;
+   uint16_t      e_phentsize;
+   uint16_t      e_phnum;
+   uint16_t      e_shentsize;
+   uint16_t      e_shnum;
+   uint16_t      e_shstrndx;
+  } ElfN_Ehdr;
+
+5. 프로그램 헤더 구조체
+ 1) 32bit 프로그램 헤더
+  typedef struct {
+   uint32_t   p_type;    //세그먼트 형식 
+   Elf32_Off  p_offset;  //세그먼트 오프셋
+   Elf32_Addr p_vaddr;   //세그먼트 가상주소(Segment Virtual Address)
+   Elf32_Addr p_paddr;   //세그먼트 물리주소(Segment Physical Address)
+   uint32_t   p_filesz;  //파일에서의 세그먼트 크기
+   uint32_t   p_memsz;   //메모리에서의 세그먼트 크기
+   uint32_t   p_flags;   //세그먼트 플래그, 예) 실행/읽기/읽기 
+   uint32_t   p_align;   //메모리에서의 세그먼트 정렬(Segment Aligment)
+  }Elf32_Phdr;
+  
+ 2) 64bit 프로그램 헤더
+  typedef struct {
+   uint32_t   p_type;
+   uint32_t   p_flags;
+   Elf64_Off  p_offset;
+   Elf64_Addr p_vaddr;
+   Elf64_Addr p_paddr;
+   uint64_t   p_filesz;
+   uint64_t   p_memsz;
+   uint64_t   p_align;
+  }Elf64_Phdr;
+

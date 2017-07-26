@@ -1,39 +1,125 @@
 import urllib2
 import json
 import datetime
+import os
+# Import smtplib for the actual sending function
+import smtplib
+# Import the email modules we'll need
+from email.mime.text import MIMEText
+
+
+MONEY_TYPE=''
+want_ticker=[361]
+want_tacker=[320]
 
 response={}
+current_list=[]
+
+ACCESS_TOKEN = '0fd27ac4-a404-4bb1-b052-f05d6b533944'
+SECRET_KEY = 'ac1873c7-fc35-4274-b94a-771e7a17505a'
 
 def read_url(idx) :
   if idx == 1:
-    f = response_ticker = urllib2.urlopen('https://api.coinone.co.kr/ticker/?currency=xrp')
+    f = response_ticker = urllib2.urlopen('https://api.coinone.co.kr/ticker/?currency='+MONEY_TYPE)
   elif idx == 2:
+    f = response_ticker = urllib2.urlopen('https://api.coinone.co.kr/orderbook/?currency='+MONEY_TYPE)
+  elif idx == 3:
     f = response_ticker = urllib2.urlopen('https://api.coinone.co.kr/orderbook/?currency=xrp')
-
+    
   js = json.loads(f.read())
 #  print(js)
   return js
 
 def Get_Current_Ticker() :
   global response
+
   response = read_url(1)
+#  print response
   timestamp = response['timestamp']
   st = datetime.datetime.fromtimestamp(
             int(timestamp)
         ).strftime('%Y-%m-%d %H:%M:%S')
-  print "  1 .Current Time : " + st
-  print "  2. Current Sell : " + response['last']
+  current_list.append("   1 .Current Time   : " + st)
+  current_list.append("   2. Current volume : " + response['volume'])
+  current_list.append("   3. Current Sell   : " + response['last'])
 
-def Get_My_Order_Info() :
+
+
+
+def Get_My_Order_Info(want_ticker, want_tacker) :
   global response
   response = read_url(2)
-  for ( i = 0 ; i < 
-  print "  1, Sell List : " response[
+  current_list.append("======ticker list=======")
+  Check_My_Order(0, want_ticker,response)
+  Check_My_Order(1, want_tacker,response)
+
+  for i in [4,3,2,1,0] :
+    current_list.append("   4. ticker : " + response['ask'][i]['price'] + "--" + response['ask'][i]['qty'])
+   
+  current_list.append("======tacker list=======")
+
+  for i in range(0,5) :
+    current_list.append("   5. tacker : " + response['bid'][i]['price'] + "--" + response['bid'][i]['qty'])
   return 0
 
+def Check_My_Order(cmd, my_order_list,response) :
+  # sell price
+  if int(cmd) == 0 :
+    for want_value in my_order_list :
+      sell_price = response['ask'][0]['price']
+      current_list.append("Sell"+str(sell_price)+"want value"+str(want_value))
+      if int(want_value) == int(sell_price) :
+        print("sendMail")
+        Send_Mail(cmd,want_value)
+        my_order_list[0] = 0
+        exit(1)
+  # buy price 
+  if int(cmd) == 1 :
+    for want_value in my_order_list :
+      buy_price = response['bid'][0]['price']
+      current_list.append("buy"+str(buy_price))
+      if int(want_value) == int(buy_price) :
+        Send_Mail(cmd,want_value)
+        my_order_list[0] = 0
+
+
+
+
+def Send_Mail(cmd,value) :
+  HOST = 'localhost'   # smtp
+  me = 'chun4foryou@coinone.com' #
+  you = 'chun4foryou@gmail.com' #
+  contents = 'Found My Limit Mony' + str(value)
+  msg = MIMEText(contents, _charset='euc-kr')
+  if int(cmd) == 0 :
+    msg['Subject'] = 'Found Sell price'
+  else :
+    msg['Subject'] = 'Found Buy Price'
+  msg['From'] = me
+  msg['To'] = you
+  s = smtplib.SMTP(HOST)
+  s.sendmail(me, [you], msg.as_string())
+  s.quit()
+
+
 def main() :
-  Get_Current_Ticker()
-  Get_My_Order_Info()
+  global MONEY_TYPE
+  while 1 :
+    os.system('sleep 1') 
+    del  current_list[:] 
+  #  current_list.append('########################## ETH #############################')
+  #  MONEY_TYPE='eth'
+  #  Get_Current_Ticker()
+  #  Get_My_Order_Info(my_order_list)
+    current_list.append( '######## XRP ########')
+    MONEY_TYPE='xrp'
+    Get_Current_Ticker()
+
+    Get_My_Order_Info(want_ticker, want_tacker)
+    os.system('clear') 
+    for value in current_list :
+      print value
+#    return 0
 
 if __name__ == "__main__":
   main()
