@@ -1,0 +1,10 @@
+.box {
+  background-color: #0000FF;
+  margin:0px;
+  padding:3px;
+  border: 5px solid #CCCCCC;
+  font-family: verdana, arial, sans-serif;
+  font-size: 15px;
+  line-height: 18px;
+  color: #FFFF00;     
+}

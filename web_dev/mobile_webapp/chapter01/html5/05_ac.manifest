@@ -1,0 +1,14 @@
+CACHE MANIFEST
+
+#캐쉬할 파일
+CACHE:
+05_ac.js
+05_ac.css
+image/offline.png
+
+#다른 리소스 파일은 서버에서 받음
+NETWORK:
+*
+
+FALLBACK:
+

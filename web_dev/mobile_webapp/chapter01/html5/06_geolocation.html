@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+<html manifest="05_ac.manifest"> 
+	<head> 
+		<meta charset="euc-kr" /> 	
+		<meta name="viewport" 
+				content="width=device-width, initial-scale=1.0, 
+							maximum-scale=1.0, minimum-scale=1.0, 
+							user-scalable=no"/>
+		<title>HTML5</title>
+		<script type="text/javascript" 
+				src="http://maps.google.com/maps/api/js?sensor=true"></script> 
+		<script type="text/javascript">
+			function startPage() {
+				if (navigator.geolocation){
+					navigator.geolocation.getCurrentPosition(successCallback,errorCallback);  
+				}
+			}
+
+			function successCallback(position){
+				var lat = position.coords.latitude; 
+				var lng = position.coords.longitude;       
+		
+				var latlng = new google.maps.LatLng(lat, lng);
+				var myOptions = {
+					zoom: 17,
+					center: latlng,
+					mapTypeControl: false,
+					navigationControlOptions: {style:google.maps.NavigationControlStyle.SMALL},
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				var mapView = document.querySelector("#mapView");
+				var map = new google.maps.Map(mapView, myOptions);
+
+				var marker = new google.maps.Marker({
+					position: latlng,
+					map: map
+				});
+			}    
+
+			function errorCallback(error){
+				alert(error.message);
+			}  
+		</script>
+	</head> 
+	<body onload="startPage()"> 
+		<div id="mapView" 
+			style="position:absolute;left:0px;top:0px;width:100%;height:100%;"></div> 
+	</body> 
+</html>
