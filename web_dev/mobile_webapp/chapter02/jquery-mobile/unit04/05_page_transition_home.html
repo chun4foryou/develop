@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<title>jQuery Mobile</title> 
+		<meta charset="euc-kr" /> 	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		
+		<link rel="shortcut icon" href="../image/icon.png">
+		<link rel="apple-touch-icon" href="../image/icon.png"> 
+		
+		<link href="../framework/jquery.mobile-1.0.css" rel="stylesheet" type="text/css" />
+		<script src="../framework/jquery-1.6.4.js"></script>
+
+		<script type="text/javascript">
+			$(document).bind("mobileinit", function() {
+				$("#homePage").live("pagebeforeshow", function(event, ui) {
+					console.log("homePage:pagebeforeshow");
+				});
+				$("#homePage").live("pageshow", function(event, ui) {
+					console.log("homePage:pageshow");
+				});
+				$("#homePage").live("pagebeforehide", function(event, ui) {
+					console.log("homePage:pagebeforehide");
+				});
+				$("#homePage").live("pagehide", function(event, ui) {
+					console.log("homePage:pagehide");
+					console.log(ui.nextPage);
+				});
+				$("#secondPage").live("pagebeforeshow", function(event, ui) {
+					console.log("secondPage:pagebeforeshow");
+				});
+				$("#secondPage").live("pageshow", function(event, ui) {
+					console.log("secondPage:pageshow");
+					console.log(ui.prevPage);
+				});
+				$("#secondPage").live("pagebeforehide", function(event, ui) {
+					console.log("secondPage:pagebeforehide");
+				});
+				$("#secondPage").live("pagehide", function(event, ui) {
+					console.log("secondPage:pagehide");
+				});
+			});
+		</script> 
+		
+		<script src="../framework/jquery.mobile-1.0.js"></script>
+	</head> 
+
+	<body>
+    <div id="homePage" data-role="page">
+    	<div data-role="header">
+    		<h1>홈 페이지</h1>
+    	</div>
+    	<div data-role="content">
+			<a href="05_page_transition_second.html" data-role="button">Second Page</a>
+    	</div>
+    </div>
+	</body>
+</html>

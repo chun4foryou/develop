@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<title>jQuery Mobile</title> 
+		<meta charset="euc-kr" /> 	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		
+		<link rel="shortcut icon" href="../image/icon.png">
+		<link rel="apple-touch-icon" href="../image/icon.png"> 
+		
+		<link href="../framework/jquery.mobile-1.0.css" rel="stylesheet" type="text/css" />
+		<script src="../framework/jquery-1.6.4.js"></script>
+		<script src="../framework/jquery.mobile-1.0.js"></script>
+
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script> 
+		
+		<script type="text/javascript">
+			function showMap(a,b) {
+				var latlng = new google.maps.LatLng(a, b);
+				var myOptions = {
+					zoom: 16,
+					center: latlng,
+					mapTypeControl: false,
+					navigationControlOptions: {style:google.maps.NavigationControlStyle.SMALL},
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				
+				var mapView = document.getElementById("mapView");
+				mapView.style.width = $(window).width()-30 + "px";
+				mapView.style.height = $(window).height()-100 + "px";
+				
+				var map = new google.maps.Map(mapView, myOptions);
+
+				var marker = new google.maps.Marker({
+					position: latlng,
+					map: map
+				});
+				
+			}
+		</script>
+	</head> 
+
+	<body>
+	<div data-role="page">
+		<div data-role="header">
+			<h1>Data Link</h1>
+		</div>
+	
+		<div data-role="content">
+			<p><a href="javascript:showMap(37.480349,126.882507);" data-role="button">Map Link</a></p>
+			<div id="mapView"></div> 
+		</div>
+	</div>
+	</body>
+</html>
