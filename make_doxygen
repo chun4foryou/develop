@@ -1,19 +1,19 @@
-# Developer : ±¹³» °³¹ßÆÀ(±èÁø±Ç)kim jin kwon
-# date : 2016-12-17 
+# Developer : êµ­ë‚´ ê°œë°œíŒ€(ê¹€ì§„ê¶Œ)kim jin kwon
+# date : 2016-12-17
 #
-#!/bin/bash	
+#!/bin/bash
 
-#TODO ±ÇÇÑÀ» ¾î¶»°Ô ÇÒ°ÍÀÎ°¡.
+#TODO ê¶Œí•œì„ ì–´ë–»ê²Œ í• ê²ƒì¸ê°€.
 WHOAMI=`whoami`
 SERVER="10.0.8.206"
 STORAGE="/var/www/doxygen/project"
 
 ##################################
-# User Setting Option ¸¸µé±â
+# User Setting Option ë§Œë“¤ê¸°
 ##################################
 function make_user_option()
 {
-#TODO dialog·Î ¸¸µé¸é ´õ ÁÁÀ»µí
+#TODO dialogë¡œ ë§Œë“¤ë©´ ë” ì¢‹ì„ë“¯
 	echo "PROJECT_NAME           = ${PRO_NAME}" >> ${D_OPTION}
 	echo "PROJECT_NUMBER         = ${VERSION}" >> ${D_OPTION}
 	echo "OUTPUT_DIRECTORY       = ./${PRO_NAME}-${VERSION}" >> ${D_OPTION}
@@ -24,14 +24,14 @@ function make_user_option()
 	read EXCLUDE_LIST
 	if [ "$EXCLUDE_LIST" == "" ];then
 		EXCLUDE_LIST=""
-	fi	
+	fi
 	echo "EXCLUDE                = ${EXCLUDE_LIST}" >> ${D_OPTION}
 	echo "EXCLUDE_PATTERNS       =" >> ${D_OPTION}
 }
 
 ##################################
-# Default Setting Option ¸¸µé±â
-# ¿É¼Ç ¼³¸íÀº °ø½Ä È¨ÆäÀÌÁö ÂüÁ¶
+# Default Setting Option ë§Œë“¤ê¸°
+# ì˜µì…˜ ì„¤ëª…ì€ ê³µì‹ í™ˆí˜ì´ì§€ ì°¸ì¡°
 # http://www.stack.nl/~dimitri/doxygen/manual/config.html
 ##################################
 function make_default_option()
@@ -46,27 +46,27 @@ function make_default_option()
 	echo "HAVE_DOT               = YES" >> ${D_OPTION}
 	echo "UML_LOOK               = YES" >> ${D_OPTION}
 	echo "CALL_GRAPH             = YES" >> ${D_OPTION}
-	echo "CALLER_GRAPH           = YES" >> ${D_OPTION} 
+	echo "CALLER_GRAPH           = YES" >> ${D_OPTION}
 	echo "DOT_PATH               = /usr/bin/dot" >> ${D_OPTION}
 	echo "DOT_GRAPH_MAX_NODES    = 5" >> ${D_OPTION}
 }
 
 #########################
-# ÃÊ±âÈ­
+# ì´ˆê¸°í™”
 ########################
 function clear_project()
 {
 	if [ -e ./${D_OPTION} ];then
 		rm -rf ./${D_OPTION}
-	fi 
+	fi
 
 	if [ -e ./${DOX_CONF} ];then
 		rm -rf ./${DOX_CONF}
-	fi 
+	fi
 }
 
 ###############################
-# ÇÁ·ÎÁ§Æ® Á¤º¸¸¦ ÀÔ·Â ¹Ş´Â´Ù.
+# í”„ë¡œì íŠ¸ ì •ë³´ë¥¼ ì…ë ¥ ë°›ëŠ”ë‹¤.
 ###############################
 function get_project_info()
 {
@@ -74,17 +74,17 @@ function get_project_info()
 	read TMP_NAME
 	if [ "$TMP_NAME" == "" ];then
 		TMP_NAME="TEST"
-	fi	
+	fi
 
-	PRO_NAME="${TMP_NAME//[[:space:]]/}" # °ø¹é Á¦°Å
+	PRO_NAME="${TMP_NAME//[[:space:]]/}" # ê³µë°± ì œê±°
 
 	echo -n "Version : "
 	read TMP_VERSION
 	if [ "$TMP_VERSION" == "" ];then
 		TMP_VERSION="1.0"
-	fi	
+	fi
 
-	VERSION="${TMP_VERSION//[[:space:]]/}" #°ø¹é Á¦°Å
+	VERSION="${TMP_VERSION//[[:space:]]/}" #ê³µë°± ì œê±°
 
 	D_OPTION="${PRO_NAME}-${VERSION}_dox.conf"
 	DOX_CONF="${PRO_NAME}-${VERSION}_doxygen.conf"
@@ -95,7 +95,7 @@ function get_project_info()
 
 
 ###########################################
-# doxygen config ¿¡ Extra tag Ãß°¡ ¸¸µé±â
+# doxygen config ì— Extra tag ì¶”ê°€ ë§Œë“¤ê¸°
 ###########################################
 function add_option()
 {
@@ -103,7 +103,7 @@ function add_option()
 }
 
 #########################
-# Doxygen ÆÄÀÏ ¸¸µé±â
+# Doxygen íŒŒì¼ ë§Œë“¤ê¸°
 ########################
 function make_config()
 {
@@ -114,14 +114,14 @@ function make_config()
 }
 
 #########################
-# Doxygen ÆÄÀÏ ¸¸µé±â
+# Doxygen íŒŒì¼ ë§Œë“¤ê¸°
 ########################
 function make_doxygen()
 {
 	doxygen -g $DOX_CONF
 	make_config
 
-# ÀÚµ¿»ı¼ºµÈ Doxygen ¿É¼Ç º¯°æÇÏ±â
+# ìë™ìƒì„±ëœ Doxygen ì˜µì…˜ ë³€ê²½í•˜ê¸°
 	while read line; do
 		key=`echo $line | awk '{print $1}'`
 		sed -i -e "/^$key/ c\
@@ -130,23 +130,23 @@ function make_doxygen()
 
 	add_option
 
-# ÃÖÁ¾ º¯°æµÈ doxygen ¿É¼ÇÀ¸·Î ¹®¼­È­ ÁøÇà
+# ìµœì¢… ë³€ê²½ëœ doxygen ì˜µì…˜ìœ¼ë¡œ ë¬¸ì„œí™” ì§„í–‰
 	doxygen $DOX_CONF
 
 }
 
 #########################
-# »ı¼ºµÈ Doxygen ¾ĞÃàÇÏ±â
+# ìƒì„±ëœ Doxygen ì••ì¶•í•˜ê¸°
 #########################
 function compress_doxygen()
 {
 	rm -rf ${PRO_NAME}-${VERSION}.tar.gz
 	echo "tar cvfz ${PRO_NAME}-${VERSION}.tar.gz ${PRO_NAME}-${VERSION}"
-	tar cvfz ${PRO_NAME}-${VERSION}.tar.gz ./${PRO_NAME}-${VERSION} > /dev/null	
+	tar cvfz ${PRO_NAME}-${VERSION}.tar.gz ./${PRO_NAME}-${VERSION} > /dev/null
 }
 
 #########################
-# À¥¼­¹ö¿¡ ÆÄÀÏ Àü¼ÛÇÏ±â
+# ì›¹ì„œë²„ì— íŒŒì¼ ì „ì†¡í•˜ê¸°
 #########################
 function send_to_webserver()
 {
