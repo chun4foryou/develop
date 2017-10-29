@@ -131,7 +131,7 @@ def main() :
     os.system('sleep '+ str(sleep_time)) 
     del  current_list[:] 
     current_list.append('######### BTC  ########')
-    MONEY_TYPE='bch'
+    MONEY_TYPE='qtum'
     Get_Current_Ticker()
     Get_My_Order_Info(want_ticker, want_tacker)
     comple_order()
