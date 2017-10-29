@@ -1,0 +1,62 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<title>jQuery Mobile</title> 
+		<meta charset="euc-kr" /> 	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		
+		<link rel="shortcut icon" href="../image/icon.png">
+		<link rel="apple-touch-icon" href="../image/icon.png"> 
+		
+		<link href="../framework/jquery.mobile-1.0.css" rel="stylesheet" type="text/css" />
+		<script src="../framework/jquery-1.6.4.js"></script>
+		<script src="../framework/jquery.mobile-1.0.js"></script>
+	</head> 
+
+	<body>
+    <div id="home" data-role="page">
+    	<div data-role="header" data-position="fixed">
+    		<h1>기본 테마</h1>
+			<a href="#" data-icon="arrow-l">Prev</a>
+			<a href="#" data-icon="arrow-r" data-iconpos="right">Next</a>
+    	</div>
+    	<div data-role="content">
+			<table style="width:100%">
+				<tr>
+					<td><a href="#" data-role="button">버튼</a></td>
+					<td><a href="#" data-role="button">버튼</a></td>
+				</tr>
+			</table>
+
+			<div data-role="collapsible">
+				<h3>I'm a header</h3>
+				<p>I'm the collapsible content. By default I'm closed, 
+					but you can click the header to open me.</p>
+			</div>
+
+			<ul data-role="listview" data-inset="true" data-split-icon="delete">
+				<li>  				
+					<a href="#">Item A</a>
+					<a href="#">Split Icon Description</a>
+				</li>
+				<li>  				
+					<a href="#">Item B</a>
+					<a href="#">Split Icon Description</a>
+				</li>
+			</ul>
+
+			<input id="amount" type="range" name="amount" 
+					min="0" max="100" value="50"/>
+    	</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#" data-icon="grid">Summary</a></li>
+					<li><a href="#" data-icon="star" class="ui-btn-active">Favs</a></li>
+					<li><a href="#" data-icon="gear">Setup</a></li>
+				</ul>
+			</div>
+		</div>
+    </div>
+	</body>
+</html>

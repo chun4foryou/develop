@@ -1,0 +1,74 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+		<title>jQuery Mobile</title>
+		<meta charset="euc-kr" /> 	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		
+		<link rel="shortcut icon" href="../image/icon.png">
+		<link rel="apple-touch-icon" href="../image/icon.png"> 
+		
+		<link href="../framework/jquery.mobile-1.0.css" rel="stylesheet" type="text/css" />
+		<script src="../framework/jquery-1.6.4.js"></script>
+		<script src="../framework/jquery.mobile-1.0.js"></script>
+	</head> 
+
+	<body>
+		<div data-role="page">       
+			<div data-role="header" data-position="fixed">	    
+				<h1>Checkbox / Radio</h1>
+			</div>
+
+			<div data-role="content">
+				<form id="joinForm" method="post" action="#">
+					<div  data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+							<legend>Hobby:</legend>						
+							<input id="hobby1" type="checkbox" name="hobby"/>
+							<label for="hobby1">축구</label>						
+							<input id="hobby2" type="checkbox" name="hobby" checked/>
+							<label for="hobby2">농구</label>
+							<input id="hobby3" type="checkbox" name="hobby"/>
+							<label for="hobby3">야구</label>				
+						</fieldset>
+					</div>
+
+					<div  data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
+							<legend>Hobby:</legend>						
+							<input id="hobby1" type="checkbox" name="hobby"/>
+							<label for="hobby1">축구</label>
+							<input id="hobby2" type="checkbox" name="hobby" checked/>
+							<label for="hobby2">농구</label>
+							<input id="hobby3" type="checkbox" name="hobby"/>
+							<label for="hobby3">야구</label>				
+						</fieldset>
+					</div>
+
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+							<legend>Job:</legend>
+							<input id="radio1" type="radio" name="job" />
+							<label for="radio1">개발자</label>
+							<input id="radio2"  type="radio" name="job" checked="checked"/>
+							<label for="radio2">디자이너</label>    
+						</fieldset>
+					</div>
+
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
+							<legend>Job:</legend>
+							<input id="radio1" type="radio" name="job"/>
+							<label for="radio1">개발자</label>
+							<input id="radio2"  type="radio" name="job"  checked="checked"/>
+							<label for="radio2">디자이너</label>
+							<input id="radio3"  type="radio" name="job"/>
+							<label for="radio3">관리자</label>  
+						</fieldset>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
+

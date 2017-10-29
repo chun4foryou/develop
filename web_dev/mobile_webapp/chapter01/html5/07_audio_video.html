@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<meta charset="euc-kr" /> 	
+		<meta name="viewport" 
+				content="width=device-width, initial-scale=1.0, 
+							maximum-scale=1.0, minimum-scale=1.0, 
+							user-scalable=no"/>
+		<title>HTML5</title>
+		<script type="text/javascript">
+			function playAudio() {
+				var audio = document.querySelector("audio");
+				audio.play();
+			}
+			function pauseAudio() {
+				var audio = document.querySelector("audio");
+				audio.pause();
+			}
+
+			function playVideo() {
+				var video = document.querySelector("video");
+				video.play();
+			}
+			function pauseVideo() {
+				var video = document.querySelector("video");
+				video.pause();
+			}
+		</script>
+	</head> 
+	<body>   
+		<button onclick="playAudio()">재생</button>
+		<button onclick="pauseAudio()">일시정지</button>
+		<hr/>
+		<audio src="media/Twilight.wav" controls>
+			HTML5 Audio를 지원하지 않는 브라우저입니다
+		</audio>
+
+		<br/><br/>  
+
+		<button onclick="playVideo()">재생</button>
+		<button onclick="pauseVideo()">일시정지</button>
+		<hr/>
+		<video src="media/BigBuck.m4v" poster="media/BigBuck.png" controls>
+			HTML5 Video를 지원하지 않는 브라우저입니다
+		</video> 
+	</body> 
+</html>
+

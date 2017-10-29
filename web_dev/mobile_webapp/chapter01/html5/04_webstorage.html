@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<meta charset="euc-kr" /> 	
+		<meta name="viewport" 
+				content="width=device-width, initial-scale=1.0, 
+							maximum-scale=1.0, minimum-scale=1.0, 
+							user-scalable=no"/>
+		<title>HTML5</title>
+		<script type="text/javascript">
+			function saveLocalStorage() {
+				if(window.localStorage) {
+					var text1 = document.querySelector("#text1");
+					window.localStorage.setItem("text1", text1.value);
+				}
+			}
+			function readLocalStorage() {
+				if(window.localStorage) {
+					var value = window.localStorage.getItem("text1");
+					var span1 = document.querySelector("#span1");
+					span1.innerHTML = value;
+				}
+			}
+			function saveSessionStorage() {
+				if(window.sessionStorage) {
+					var text2 = document.querySelector("#text2");
+					window.sessionStorage.setItem("text2", text2.value);
+				}
+			}
+			function readSessionStorage() {
+				if(window.sessionStorage) {
+					var value = window.sessionStorage.getItem("text2");
+					var span2 = document.querySelector("#span2");
+					span2.innerHTML = value;
+				}
+			}
+		</script>
+	</head> 
+
+	<body>  
+		<h3>Local Storage</h3>
+		<button onclick="saveLocalStorage()">저장</button>
+		<input id="text1" type="text"/> 
+		<br/>
+		<button onclick="readLocalStorage()">조회</button>
+		<span id="span1"></span><br/>
+
+		<h3>Session Storage</h3>
+		<button onclick="saveSessionStorage()">저장</button>
+		<input id="text2" type="text"/> 
+		<br/>
+		<button onclick="readSessionStorage()">조회</button>
+		<span id="span2"></span><br/>
+	</body>
+</html>

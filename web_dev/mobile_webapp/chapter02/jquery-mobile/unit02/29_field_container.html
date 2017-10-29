@@ -1,0 +1,43 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+		<title>jQuery Mobile</title>
+		<meta charset="euc-kr" /> 	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		
+		<link rel="shortcut icon" href="../image/icon.png">
+		<link rel="apple-touch-icon" href="../image/icon.png"> 
+		
+		<link href="../framework/jquery.mobile-1.0.css" rel="stylesheet" type="text/css" />
+		<script src="../framework/jquery-1.6.4.js"></script>
+		<script src="../framework/jquery.mobile-1.0.js"></script>
+	</head> 
+
+	<body>
+		<div data-role="page">       
+			<div data-role="header">	    
+				<h1>Field Container</h1>
+			</div>
+
+			<div data-role="content">
+				<form id="joinForm" method="post" action="#">
+					<div data-role="fieldcontain">
+						<label for="name">Name:</label>
+						<input id="name" type="text" name="name"/> 
+					</div>
+					
+					<div data-role="fieldcontain">
+						<label for="password">Password:</label>
+						<input id="password" type="password" name="password"/>
+					</div>			
+					
+					<div data-role="fieldcontail">
+						<label for="comment">Comment:</label>
+						<textarea id="comment" name="comment" ></textarea>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
+

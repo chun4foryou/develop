@@ -8,7 +8,7 @@ import time
 ACCESS_TOKEN = '0fd27ac4-a404-4bb1-b052-f05d6b533944'
 SECRET_KEY = 'ac1873c7-fc35-4274-b94a-771e7a17505a'
 
-URL = 'https://api.coinone.co.kr/v2/account/balance/'
+URL = 'https://api.coinone.co.kr/v1/order/limit_orders/'
 PAYLOAD = {
   "access_token": ACCESS_TOKEN,
 }

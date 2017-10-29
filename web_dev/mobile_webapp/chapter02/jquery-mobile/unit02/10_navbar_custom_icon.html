@@ -1,0 +1,79 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+		<title>jQuery Mobile</title>
+		<meta charset="euc-kr" /> 	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		
+		<link rel="shortcut icon" href="../image/icon.png">
+		<link rel="apple-touch-icon" href="../image/icon.png"> 
+		
+		<link href="../framework/jquery.mobile-1.0.css" rel="stylesheet" type="text/css" />
+		<script src="../framework/jquery-1.6.4.js"></script>
+		<script src="../framework/jquery.mobile-1.0.js"></script>
+
+		<style>	
+			.nav-glyphish-example .ui-btn .ui-btn-inner { 
+				padding-top: 40px;
+			}
+			.nav-glyphish-example .ui-btn .ui-icon { 
+				width: 30px; 
+				height: 30px; 
+				margin-left: -15px; 
+				box-shadow: none; 
+				-moz-box-shadow: none; 
+				-webkit-box-shadow: none; 
+				-webkit-border-radius: 0; 
+				border-radius: 0; 
+			}
+			#chat .ui-icon { 
+				background:  url(../image/glyphish-icons/09-chat2.png) 50% 50% no-repeat; 
+				background-size: 24px 22px; 
+			}
+			#email .ui-icon { 
+				background:  url(../image/glyphish-icons/18-envelope.png) 50% 50% no-repeat; 
+				background-size: 24px 16px;  
+			}
+			#login .ui-icon { 
+				background:  url(../image/glyphish-icons/30-key.png) 50% 50% no-repeat;  
+				background-size: 12px 26px; 
+			}
+			#beer .ui-icon { 
+				background:  url(../image/glyphish-icons/88-beermug.png) 50% 50% no-repeat;  
+				background-size: 22px 27px; 
+			}
+			#coffee .ui-icon { 
+				background:  url(../image/glyphish-icons/100-coffee.png) 50% 50% no-repeat;  
+				background-size: 20px 24px; 
+			}
+			#skull .ui-icon { 
+				background:  url(../image/glyphish-icons/21-skull.png) 50% 50% no-repeat;  
+				background-size: 22px 24px; 
+			}
+		</style>
+	</head> 
+
+	<body>
+		<div data-role="page">
+			<div data-role="header">
+				<h1>navbar</h1>
+			</div>
+
+			<div data-role="content">	
+			</div>
+			
+			<div data-role="footer" data-position="fixed" >
+				<div data-role="navbar" class="nav-glyphish-example">
+					<ul>
+						<li><a href="#" id="chat" data-icon="custom">Chat</a></li>
+						<li><a href="#" id="email" data-icon="custom">Email</a></li>
+						<li><a href="#" id="skull" data-icon="custom">Danger</a></li>
+						<li><a href="#" id="beer" data-icon="custom">Beer</a></li>
+						<li><a href="#" id="coffee" data-icon="custom">Coffee</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+

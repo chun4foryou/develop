@@ -28,7 +28,7 @@ def read_url(idx) :
     f = response_ticker = urllib2.urlopen('https://api.coinone.co.kr/orderbook/?currency='+MONEY_TYPE)
   elif idx == 4:
     f = response_ticker = urllib2.urlopen('https://api.coinone.co.kr/trades/?currency='+MONEY_TYPE)
-   
+
   js = json.loads(f.read())
 #  print(js)
   return js
@@ -65,6 +65,7 @@ def Get_My_Order_Info(want_ticker, want_tacker) :
 
   for i in range(0,5) :
     current_list.append("   5. tacker : " + response['bid'][i]['price'] + "--" + response['bid'][i]['qty'].rjust(12," "))
+
   return 0
 
 def Check_My_Order(cmd, my_order_list,response) :
@@ -142,7 +143,6 @@ def main() :
     Get_Current_Ticker()
     Get_My_Order_Info(want_ticker, want_tacker)
     comple_order()
-
     os.system('clear') 
     for value in current_list :
       print value
