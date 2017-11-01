@@ -16,21 +16,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <curl/curl.h>
+//#include <curl/curl.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <sqlite3.h>
+//#include <sqlite3.h>
 #include <dirent.h>
-
-#include "archive.h"
-#include "archive_entry.h"
-#include "sn_worker.h"
-#include "sn_controller.h"
-#include "sn_signature.h"
-#include "sn_type.h"
-#include "sn_category.h"
-
-struct tm  *gtime = NULL;
 
 
 /**
@@ -4798,6 +4788,7 @@ int sn_worker_manager (DATA_t *data)
 		data->status_code = STAT_NOT_SUPPORT_CODE_ERR;
 		rc = RET_FAIL;
 	}
+  TESaaT();
 
 manager_end:
 

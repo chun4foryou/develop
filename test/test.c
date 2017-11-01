@@ -1,6 +1,5 @@
 /**                                                  
  * @brief TEST Progoram
- * @file test.c
  * @date 20161206
  * @author kimjinkwon
 */
@@ -31,7 +30,13 @@ static int Add(int a, int b)
 int main(int argc, char** argv)
 {
 
-	printf("%d\n",Add(atoi(argv[0]),atoi(argv[1])));
+	printf("%d %d\n",Add(atoi(argv[0]),atoi(argv[1])));
+
+
+  test();
+
+
+  fprintf(stderr, "aaa");
 	return 0;
 }
 
