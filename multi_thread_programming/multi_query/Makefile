@@ -5,7 +5,7 @@ INC = -I./ -I./library -I./library/curl/include -I./library/openssl/
 CFLAGS = -Wall -ggdb $(INC) $(DEFS)
 LIB = -L./library/curl/lib -lcurl \
 			-L./library/openssl/lib -lssl -lcrypto \
-			-lrt -ldl
+			-lrt -ldl -lpthread
 
 all: curl_multi multi_download
 

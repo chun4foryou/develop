@@ -2,7 +2,7 @@
 PWD=`pwd`
 SETUPT_PATH="../library/openssl"
 
-cd ./openssl-1.0.2n/
+cd ./openssl-1.0.2o/
 
 if [ ! -e ${SETUPT_PATH} ]; then
 	mkdir -p ${SETUPT_PATH}
