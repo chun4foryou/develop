@@ -1,6 +1,7 @@
 #!/bin/bash
 PWD=`pwd`
 SETUPT_PATH="../library/curl"
+tar xvfz curl-7.59.0.tar.gz
 
 ## curl
 cd ./curl-7.59.0/
