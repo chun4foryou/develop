@@ -7,7 +7,7 @@ LIB = -L./library/curl/lib -lcurl \
 			-L./library/openssl/lib -lssl -lcrypto \
 			-lrt -ldl -lpthread
 
-all: curl_multi multi_download multi_query
+all: curl_multi multi_download externalsocket
 
 curl_multi: curl_multi.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LIB)
@@ -15,9 +15,8 @@ curl_multi: curl_multi.o
 multi_download: multi_download.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LIB)
 
-multi_query: multi_query.o
+externalsocket: externalsocket.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LIB)
-
 
 clean:
 	rm -rf *.o curl_multi multi_download 
