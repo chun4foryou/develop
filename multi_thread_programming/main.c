@@ -1,24 +1,28 @@
 #include <stdio.h> 
+#include <stdlib.h>
 #include <unistd.h> 
 #include <pthread.h> 
 #include  "./fifo_queue.h"
 
 int ncount;    // 쓰레드간 공유되는 자원
 
-struct my_list*  mt = NULL;
+struct fifo_list*  mt = NULL;
+
 
 pthread_mutex_t  mutex = PTHREAD_MUTEX_INITIALIZER; // 쓰레드 초기화
 
 // 쓰레드 함 수 1
-void* enqueue(void *data)
+void* fifo_enqueue(void* argv)
 {
-	int i;
-	int count=0;
-
+	URL_INFO data;
+	int i =0;
 	while(1){
 		sleep(1);
 		pthread_mutex_lock(&mutex); // 잠금을 생성한다.
-		list_add_element(mt, count++);
+		snprintf(data.url,sizeof(data.url),"http:www.naver.com[%d]",i);
+		data.port=443;
+		data.idx=i++;
+		enqueue(mt, &data);
 		pthread_mutex_unlock(&mutex); // 잠금을 해제한다.
 	}
 }
@@ -26,15 +30,15 @@ void* enqueue(void *data)
 // 쓰레드 함수 2
 void* do_loop2(void *data)
 {
-	int i;
-
+	URL_INFO get_data;
 	// 잠금을 얻으려고 하지만 do_loop 에서 이미 잠금을 
 	// 얻었음으로 잠금이 해제될때까지 기다린다.  
+//	sleep(10);
 	while(1){
-		if(mt->size >1){
+		if(mt->size >0){
 			pthread_mutex_lock(&mutex); // 잠금을 생성한다.
-			list_remove_element(mt);
-			list_print(mt);
+			deqeue(mt ,&get_data);
+			fprintf(stderr,"URL[%s],port[%d] id[%d]\n",get_data.url, get_data.port, get_data.idx);
 			pthread_mutex_unlock(&mutex); // 잠금을 해제한다.
 		}
 	}
@@ -47,11 +51,11 @@ int main()
 	int status;
 	int a = 1;
 
-	mt = list_new();
+	mt = create_fifo_queue(1000, sizeof(URL_INFO));
 
 	printf("test\n");
 	ncount = 0;
-	thr_id = pthread_create(&p_thread[0], NULL, enqueue, (void *)&a);
+	thr_id = pthread_create(&p_thread[0], NULL, fifo_enqueue, NULL);
 	sleep(1);
 	thr_id = pthread_create(&p_thread[1], NULL, do_loop2, (void *)&a);
 

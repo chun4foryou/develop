@@ -1,25 +1,29 @@
-struct my_struct
+typedef struct url_info{
+	char url[128];
+	int port;
+	int idx;
+}URL_INFO;
+
+
+struct bucket
 {
-	int num;
-	struct my_struct* next;
+	void *data;
+	struct bucket* next;
 };
 
 
-struct my_list
+struct fifo_list
 {
-	struct my_struct* head;
-	struct my_struct* tail;
-	int size;
+	struct bucket* head;     // 처음 데이터
+	struct bucket* tail;     // 마지막 데이터 
+	int bucket_data_size;    // fifo data 크기 
+	unsigned int size;       // fifo_queue의 데이터 크기
+	unsigned int queue_size; // 최대 queue 크기 
 };
 
-
-struct my_list* list_add_element( struct my_list*, const int);
-struct my_list* list_remove_element( struct my_list*);
-
-
-struct my_list* list_new(void);
-struct my_list* list_free( struct my_list* );
-
-void list_print( const struct my_list* );
-void list_print_element(const struct my_struct* );
+struct fifo_list* create_fifo_queue(unsigned int max_size,unsigned int data_size);
+struct fifo_list* enqueue( struct fifo_list*,void* data);
+struct fifo_list* deqeue( struct fifo_list* s , void *data);
+struct fifo_list* fifo_free( struct fifo_list* );
+struct fifo_list* remove_element( struct fifo_list*);
 

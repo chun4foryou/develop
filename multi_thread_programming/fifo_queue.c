@@ -23,48 +23,28 @@
 #include  <string.h>
 #include  "./fifo_queue.h"
 
-
-#if 0
-int main(void)
+struct fifo_list* create_fifo_queue(unsigned int max_size,unsigned int data_size)
 {
-	struct my_list*  mt = NULL;
-
-	mt = list_new();
-	list_add_element(mt, 1);
-	list_add_element(mt, 2);
-	list_add_element(mt, 3);
-	list_add_element(mt, 4); 
-
-	list_print(mt);
-
-	list_remove_element(mt);
-	list_print(mt);
-
-	list_free(mt);   /* always remember to free() the malloc()ed memory */
-	free(mt);        /* free() if list is kept separate from free()ing the structure, I think its a good design */
-	mt = NULL;      /* after free() always set that pointer to NULL, C will run havon on you if you try to use a dangling pointer */
-
-	list_print(mt);
-
-	return 0;
-}
-#endif
-
-
-/* Will always return the pointer to my_list */
-struct my_list* list_add_element(struct my_list* s, const int i)
-{
-	struct my_struct* p = malloc( 1 * sizeof(*p) );
+	struct fifo_list* p = malloc( 1 * sizeof(struct fifo_list));
 
 	if( NULL == p )
 	{
-		fprintf(stderr, "IN %s, %s: malloc() failed\n", __FILE__, "list_add");
-		return s; 
+		fprintf(stderr, "LINE: %d, malloc() failed\n", __LINE__);
 	}
 
-	p->num = i;
-	p->next = NULL;
+	p->queue_size =  max_size;
+	p->bucket_data_size = data_size;
+	p->head = p->tail = NULL;
 
+	return p;
+}
+
+/* Will always return the pointer to fifo_list */
+// 동적데이터의 포인터를 저장한다.
+struct fifo_list* enqueue(struct fifo_list* s, void *enq_data)
+{
+	struct bucket *p = NULL;
+	void *new_data = NULL;
 
 	if( NULL == s )
 	{
@@ -72,7 +52,27 @@ struct my_list* list_add_element(struct my_list* s, const int i)
 		free(p);
 		return s;
 	}
-	else if( NULL == s->head && NULL == s->tail )
+
+	if( s->size ==  s->queue_size ){
+		fprintf(stderr, "IN %s, %s: FIFO Queue is FULL",__FILE__,__FUNCTION__);
+		return s;
+	}
+
+	p = malloc( 1 * sizeof(struct bucket));
+	new_data = malloc(1 * (s->bucket_data_size));
+	memset(new_data,0,s->bucket_data_size);
+
+	if( p ==  NULL || new_data == NULL)
+	{
+		fprintf(stderr, "IN %s, %s: malloc() failed\n", __FILE__,__FUNCTION__);
+		return s; 
+	}
+
+	memcpy((void*)new_data, enq_data, s->bucket_data_size);
+	p->data = new_data;
+	p->next = NULL;
+
+	if( NULL == s->head && NULL == s->tail )
 	{
 		/* printf("Empty list, adding p->num: %d\n\n", p->num);  */
 		s->head = s->tail = p;
@@ -98,10 +98,10 @@ struct my_list* list_add_element(struct my_list* s, const int i)
 
 
 /* This is a queue and it is FIFO, so we will always remove the first element */
-struct my_list* list_remove_element( struct my_list* s )
+struct fifo_list* deqeue( struct fifo_list* s , void *data)
 {
-	struct my_struct* h = NULL;
-	struct my_struct* p = NULL;
+	struct bucket* h = NULL;
+	struct bucket* p = NULL;
 
 	if( NULL == s )
 	{
@@ -122,6 +122,8 @@ struct my_list* list_remove_element( struct my_list* s )
 
 	h = s->head;
 	p = h->next;
+	memcpy((void*)data, h->data, s->bucket_data_size);
+	free(h->data);
 	free(h);
 	s->head = p;
 	if( NULL == s->head )  s->tail = s->head;   /* The element tail was pointing to is free(), so we need an update */
@@ -131,56 +133,50 @@ struct my_list* list_remove_element( struct my_list* s )
 }
 
 
-/* ---------------------- small helper fucntions ---------------------------------- */
-struct my_list* list_free( struct my_list* s )
+
+/* This is a queue and it is FIFO, so we will always remove the first element */
+struct fifo_list* remove_element( struct fifo_list* s )
 {
-	while( s->head )
+	struct bucket* h = NULL;
+	struct bucket* p = NULL;
+
+	if( NULL == s )
 	{
-		list_remove_element(s);
+		printf("List is empty\n");
+		return s;
+	}
+	else if( NULL == s->head && NULL == s->tail )
+	{
+		printf("Well, List is empty\n");
+		return NULL;
+	}
+	else if( NULL == s->head || NULL == s->tail )
+	{
+		printf("There is something seriously wrong with your list\n");
+		printf("One of the head/tail is empty while other is not \n");
+		return s;
 	}
 
+	h = s->head;
+	p = h->next;
+	free(h->data);
+	free(h);
+	s->head = p;
+	if( NULL == s->head )  s->tail = s->head;   /* The element tail was pointing to is free(), so we need an update */
+
+	s->size--;
 	return s;
 }
 
-struct my_list* list_new(void)
+struct fifo_list* fifo_free( struct fifo_list* s )
 {
-	struct my_list* p = malloc( 1 * sizeof(*p));
-
-	if( NULL == p )
+	while( s->head )
 	{
-		fprintf(stderr, "LINE: %d, malloc() failed\n", __LINE__);
+		remove_element(s);
 	}
+	free(s);
 
-	p->head = p->tail = NULL;
-
-	return p;
+	return NULL;
 }
 
 
-void list_print( const struct my_list* ps )
-{
-	struct my_struct* p = NULL;
-
-	if( ps )
-	{
-		for( p = ps->head; p; p = p->next )
-		{
-			list_print_element(p);
-		}
-	}
-
-	printf("------------------\n");
-}
-
-
-void list_print_element(const struct my_struct* p )
-{
-	if( p ) 
-	{
-		printf("Num = %d\n", p->num);
-	}
-	else
-	{
-		printf("Can not print NULL struct \n");
-	}
-}
