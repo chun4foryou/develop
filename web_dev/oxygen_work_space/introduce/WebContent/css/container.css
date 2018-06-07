@@ -1,0 +1,27 @@
+* {
+    clear: right;
+}
+#photo1, #photo2 {
+    border: 1px solid rgb(129, 115, 115);
+    height: 450px;
+    width: 60%;
+    margin: 3% 20%;
+}
+
+#photo1{
+    position: relative;
+}
+
+#photo_2018 > img {
+    position: absolute;
+    top : 17%;
+}
+
+#photo2{
+    position: relative;
+}
+
+#photo_2017 > img {
+    position: absolute;
+    top : 17%;
+}

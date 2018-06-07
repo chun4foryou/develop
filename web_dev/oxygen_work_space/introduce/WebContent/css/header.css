@@ -1,8 +1,13 @@
+ul {
+    float : right;
+    margin-right : 3%;
+}
+
 nav li {
     display : block;
     list-style-type: none;
-    color : gray;
-    background-color : blue;
+    color : black;
+    background-color : gainsboro;
     width : 100px;
     height : 30px;
     float: left;
