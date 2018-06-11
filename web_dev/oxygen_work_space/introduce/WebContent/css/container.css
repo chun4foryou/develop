@@ -1,27 +1,28 @@
 * {
     clear: right;
 }
-#photo1, #photo2 {
+
+#wrap img {
+    margin-left:5%;
+    width: 300px;
+    height: 200px;
+}
+
+article {
+    position: relative;
     border: 1px solid rgb(129, 115, 115);
-    height: 450px;
+    height: 300px;
     width: 60%;
     margin: 3% 20%;
 }
 
-#photo1{
-    position: relative;
-}
-
-#photo_2018 > img {
+.photo{
     position: absolute;
     top : 17%;
 }
 
-#photo2{
-    position: relative;
-}
-
-#photo_2017 > img {
+.description {
     position: absolute;
     top : 17%;
+    left : 350px;
 }
