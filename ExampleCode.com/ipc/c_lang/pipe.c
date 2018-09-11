@@ -27,8 +27,8 @@ int main(void) {
   char    string[] = "Hello, world!\n";
   char    readbuffer[80];
 
-  if (rc = pipe(fd) < 0) {
-    printf("Creating Pipe is Error\n");
+  if ((rc = pipe(fd)) < 0) {
+    printf("Creating Pipe is Error [%d]\n", rc);
   }
 
   if((childpid = fork()) == -1) {
@@ -49,7 +49,7 @@ int main(void) {
 
     /* Pipe에서 메시지 읽기 */
     nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
-    printf("Received Parent string: %s", readbuffer);
+    printf("Received Parent string: %s [%d]", readbuffer, nbytes);
   }
 
   return 0;

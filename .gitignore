@@ -1,0 +1,5 @@
+multi_thread_programming/multi_query/curl-7.59.0/
+multi_thread_programming/multi_query/library/
+multi_thread_programming/multi_query/openssl-1.0.2o/
+*.o
+*.a
