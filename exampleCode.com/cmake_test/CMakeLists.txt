@@ -44,8 +44,8 @@ add_executable(${PROJECT_NAME} ${main_src})
 #특정 실행 파일에 적용될 라이브러리 링크추가
 target_link_libraries(${PROJECT_NAME}
 #    -Wl,--no-as-needed
-#    -Wl,--rpath,./
-#    dl
+    -Wl,--rpath,$ORIGIN/../lib
+    dl
     pthread
     ${hello_LIBRARIES} 
 )
@@ -60,10 +60,17 @@ install(TARGETS ${PROJECT_NAME}
     COMPONENT test
     )
 
+# install(TARGETS <target1> <target2> ...
+#        RUNTIME DESTINATION <executable-dir>
+#        LIBRARY DESTINATION <shared-lib-dir>
+#        ARCHIVE DESTINATION <static-lib-dir>
+#        PUBLIC_HEADER DESTINATION <header-dir>
+#        )
 
-install(DIRECTORY "./libs/lib/"
-        COMPONENT full
-        DESTINATION lib
+install(FILES ${CMAKE_SOURCE_DIR}/libs/hello/libhello-static.a ${CMAKE_SOURCE_DIR}/libs/hello/libhello-shared.so
+    COMPONENT full
+    DESTINATION lib
+    DESTINATION lib
     )
 
 set(CPACK_GENERATOR "TGZ")
