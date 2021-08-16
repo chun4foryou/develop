@@ -3,3 +3,12 @@ multi_thread_programming/multi_query/library/
 multi_thread_programming/multi_query/openssl-1.0.2o/
 *.o
 *.a
+CMakeFiles/
+Makefile
+CMakeCache.txt
+CPackConfig.cmake
+CPackSourceConfig.cmake
+CTestTestfile.cmake
+install_manifest*
+cmake_install*
+_CPack_Packages*
