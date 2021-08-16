@@ -1,1 +1,0 @@
-     287ftStringperiod20ftStringprotocol19ftStringport19ftStringinpkt19ftStringinpps19ftStringinsize19ftStringinbps19ftStringoutpkt19ftStringoutpps19ftStringoutsize19ftStringoutbps19ftStringtotpkt19ftStringtotpps19ftStringtotsize19ftStringtotbps19

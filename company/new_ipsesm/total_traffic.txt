@@ -1,1 +1,0 @@
-     367ftStringperiod20ftStringcpuload19ftStringtotpkt19ftStringtotbps19ftStringtcppkt19ftStringudppkt19ftStringicmppkt19ftStringetcpkt19ftStringinbps19ftStringinpps19ftStringoutbps19ftStringoutpps19ftStringhackpkt19ftStringpktrate19ftStringhackbps19ftStringbpsrate19ftStringsession19ftStringaddress19ftStringhdd19
