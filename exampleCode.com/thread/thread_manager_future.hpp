@@ -100,6 +100,8 @@ private:
                         auto status = info->f_thread.wait_for(std::chrono::seconds(0));
                         if (status == std::future_status::ready) {
                             std::cout << "thread finished" << std::endl;
+                            // get을 해주어야 valid가 invalid로 변경 된다.
+                            info->f_thread.get(); 
                             info = m_vthread_pool.erase(info);
                         } else {
                             std::cout << "thread still running" << std::endl;
