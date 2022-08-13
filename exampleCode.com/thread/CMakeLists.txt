@@ -20,9 +20,9 @@ include_directories()
 link_directories()
        
 #전체 적용될 라이브러리 링크
-link_libraries(
-    pthread
-)
+#link_libraries(
+#    -pthread
+#)
         
 #cmake 변수 처리
 file(GLOB main_src "thread.cpp")
@@ -35,10 +35,11 @@ file(GLOB main_src "thread.cpp")
 add_executable(thread ${main_src})
 
 #특정 실행 파일에 적용될 라이브러리 링크추가
-#target_link_libraries(server
+target_link_libraries(thread
+    -pthread
 #    -Wl,--disable-new-dtags
 #    -Wl,--rpath,/home/openssl
-#)
+)
 
 
 #실행 파일 생성

@@ -9,16 +9,16 @@
 #include <algorithm>
 #include <future>
 
-class threadmanager
+class ThreadManager
 {
 public:
-    threadmanager(uint32_t _thread_pool_count = 10) {
+    ThreadManager(uint32_t _thread_pool_count = 10) {
         m_uthread_pool_count = _thread_pool_count;
 //        run_thread_pool = std::thread(&threadmnagaer::runthreadpool, this);
-        m_frun_thread_pool = std::async(std::launch::async, &threadmanager::runthreadpool, this);
+        m_frun_thread_pool = std::async(std::launch::async, &ThreadManager::runthreadpool, this);
     }
 
-    ~threadmanager()
+    ~ThreadManager()
     {
         if (m_frun_thread_pool.wait_for(std::chrono::seconds(5))
                 == std::future_status::timeout) {
@@ -32,12 +32,12 @@ public:
         }
     }
 
-    void stop() 
+    void Stop() 
     {
         m_bstop_flag = true;
     }
 
-    void registerthread(std::function<void()> func) 
+    void RegisterThread(std::function<void()> func) 
     {
         std::lock_guard<std::mutex> guard(m_count_mutex);
         threadinfo t_info;
@@ -48,18 +48,18 @@ public:
     }
 
 
-    uint32_t getthreadpool() 
+    uint32_t GetThreadPool() 
     {
         return m_uthread_pool_count;
     }
 
-    uint32_t getrunningthreadcount()
+    uint32_t GetRunningThreadCount()
     {
         std::lock_guard<std::mutex> guard(m_count_mutex);
         return m_vthread_pool.size();
     }
 
-    uint32_t getremainthreadcount()
+    uint32_t GetRemainThreadCount()
     {
         std::lock_guard<std::mutex> guard(m_count_mutex);
         return m_uthread_pool_count - m_vthread_pool.size();
@@ -86,7 +86,7 @@ private:
     {
         std::list<threadinfo>::iterator info;
         while (1) {
-            if ((true == m_bstop_flag) && (getrunningthreadcount() == 0)) {
+            if ((true == m_bstop_flag) && (GetRunningThreadCount() == 0)) {
                 std::cout << "종료!!"<< std::endl;
                 return 0;
             }
@@ -112,4 +112,4 @@ private:
     }
 };
 
-#
+#endif
