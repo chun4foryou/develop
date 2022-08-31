@@ -8,9 +8,9 @@
     "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "@types/angular": "^1.6.4",
+    "@types/angular": "^1.8.4",
     "@types/underscore": "^1.8.0",
-    "angular": "^1.6.4",
+    "angular": "^1.8.3",
     "underscore": "^1.8.0"
   },
   "devDependencies": {
